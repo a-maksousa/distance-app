@@ -11,13 +11,11 @@ const HeaderActions = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 0.05, justifyContent: "space-around", display: "flex", alignItems: "center" }}>
-      <Tooltip title={"Mode"}>
-        <IconButton onClick={toggleMode}>
-          <DarkModeTwoTone />
-        </IconButton>
-      </Tooltip>
-    </Box>
+    <Tooltip title={"Mode"}>
+      <IconButton onClick={toggleMode}>
+        <DarkModeTwoTone />
+      </IconButton>
+    </Tooltip>
   );
 };
 

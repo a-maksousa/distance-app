@@ -1,19 +1,12 @@
 import { createTheme } from "@mui/material";
+import { createComponentsTheme } from "./components";
 
 export const initTheme = (mode) => {
   let baseTheme = createTheme({
-    components: {
-      MuiAppBar: {
-        defaultProps: {
-          elevation: 1,
-        },
-      },
-    },
     palette: {
       mode,
     },
   });
 
-  //return createTheme(baseTheme)
-  return baseTheme;
+  return createTheme(baseTheme, { components: createComponentsTheme(baseTheme) });
 };
