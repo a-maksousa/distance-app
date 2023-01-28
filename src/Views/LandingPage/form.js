@@ -75,7 +75,7 @@ const SearchForm = ({ onSubmit, control }) => {
         </Grid>
       </Section>
 
-      <Stack justifyContent="center" sx={{ transform: "translate(0,-20px)" }} direction="row" spacing={3}>
+      <Stack justifyContent="center" sx={{ transform: "translate(0,-20px)" }} direction="row" spacing={1}>
         <FormButton startIcon={<AddTwoTone />}>Add Intermediate City</FormButton>
         <FormButton type="submit" color="secondary" startIcon={<SearchTwoTone />}>
           Search
