@@ -5,5 +5,10 @@ export const composeThemePalette = ({ palette: { mode, grey } }) => ({
 });
 
 export const palette = {
-  secondary: amber,
+  secondary: {
+    main: amber[700],
+    light: amber[400],
+    dark: amber[800],
+    contrastText: "#fff",
+  },
 };

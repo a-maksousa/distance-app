@@ -1,11 +1,13 @@
-import { SearchTwoTone, LocationOnTwoTone, PushPinTwoTone, GroupTwoTone } from "@mui/icons-material";
-import { Box, Button, Grid } from "@mui/material";
+import { SearchTwoTone, LocationOnTwoTone, PushPinTwoTone, GroupTwoTone, AddTwoTone } from "@mui/icons-material";
+import { Box, Button, Grid, Stack, styled } from "@mui/material";
 import RHFAutoComplete from "Components/RHFControls/RHFAutoComplete";
 import RHFDatePicker from "Components/RHFControls/RHFDatePicker";
 import RHFTextField from "Components/RHFControls/RHFTextField";
 import Section from "Components/Section";
 import moment from "moment";
 import { useState } from "react";
+
+const FormButton = styled(Button)({ borderRadius: 30 });
 
 const SearchForm = ({ onSubmit, control }) => {
   const [lstOriginOptions, setOrigin] = useState([{ id: 1, label: "test" }]);
@@ -22,7 +24,7 @@ const SearchForm = ({ onSubmit, control }) => {
   };
   return (
     <Box component="form" noValidate onSubmit={onSubmit}>
-      <Section>
+      <Section sx={{ pb: 6 }}>
         <Grid item xs={6} md={3}>
           <RHFAutoComplete
             control={control}
@@ -72,17 +74,12 @@ const SearchForm = ({ onSubmit, control }) => {
         </Grid>
       </Section>
 
-      <Box sx={{ display: "flex", justifyContent: "center", transform: "translate(0,-20px)" }}>
-        <Button
-          size="large"
-          type="submit"
-          color="secondary"
-          startIcon={<SearchTwoTone />}
-          sx={{ borderRadius: 10, color: "white" }}
-        >
+      <Stack justifyContent="center" sx={{ transform: "translate(0,-20px)" }} direction="row" spacing={3}>
+        <FormButton startIcon={<AddTwoTone />}>Add Intermediate City</FormButton>
+        <FormButton type="submit" color="secondary" startIcon={<SearchTwoTone />}>
           Search
-        </Button>
-      </Box>
+        </FormButton>
+      </Stack>
     </Box>
   );
 };
