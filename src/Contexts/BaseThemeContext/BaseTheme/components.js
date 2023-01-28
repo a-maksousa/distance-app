@@ -17,6 +17,7 @@ export const components = {
     defaultProps: {
       variant: "outlined",
       fullWidth: true,
+      autoComplete: "off",
     },
   },
   MuiButton: {
