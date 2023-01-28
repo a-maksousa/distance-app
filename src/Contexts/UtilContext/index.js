@@ -50,7 +50,7 @@ const UtilContextProvider = (props) => {
       </Snackbar>
       <Backdrop
         open={loading}
-        sx={{ zIndex: (theme) => theme.zIndex.modal + 1, color: (theme) => theme.palette.primary.contrastText }}
+        sx={{ zIndex: (theme) => theme.zIndex.modal + 1 }}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
