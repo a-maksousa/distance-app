@@ -6,9 +6,9 @@ export const MeasureAllDistances = (origin, intermediate, destination) => async 
     const originLines = await SearchCityApi(origin);
     const destinationLines = await SearchCityApi(destination);
 
-    if (!intermediate) {
+    if (intermediate.length === 0) {
       const distance = await calculateDistance(originLines, destinationLines);
-      onSuccess({ total: destination, distances: [{ name: destination, distance }] });
+      onSuccess([{ name: destination, distance }]);
     } else {
       const lstDistances = [];
       for (const [index, City] of intermediate?.entries()) {
