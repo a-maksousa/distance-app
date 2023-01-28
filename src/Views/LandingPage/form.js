@@ -19,14 +19,7 @@ const FormButton = styled(Button)({ borderRadius: 30 });
 FormButton.defaultProps = { size: "large" };
 
 const SearchForm = ({ onSubmit, control, unregister }) => {
-  const [lstCitiesOptions, setCitiesOptions] = useState([{ id: 1, label: "test" }]);
   const [lstIntermediateCities, setIntermediateCities] = useState([]);
-
-  const handleCityInputChange = (e, val, reason) => {
-    if (reason === "input") {
-      console.log(val);
-    }
-  };
 
   const handleAddIntCity = () => {
     setIntermediateCities([...lstIntermediateCities, `City_${uuidv4()}`]);
@@ -41,24 +34,13 @@ const SearchForm = ({ onSubmit, control, unregister }) => {
     <Box component="form" noValidate onSubmit={onSubmit}>
       <Section sx={{ pb: 6 }}>
         <Grid item xs={6} md={3}>
-          <RHFAutoComplete
-            control={control}
-            name="origin"
-            label="City of Origin"
-            options={lstCitiesOptions}
-            required
-            onInputChange={handleCityInputChange}
-            endAdornment={<LocationOnTwoTone />}
-          />
+          <CityCombo control={control} name="origin" label="City of Origin" endAdornment={<LocationOnTwoTone />} />
         </Grid>
         <Grid item xs={6} md={3}>
-          <RHFAutoComplete
+          <CityCombo
             control={control}
             name="destination"
             label="City of Destination"
-            options={lstCitiesOptions}
-            required
-            onInputChange={handleCityInputChange}
             endAdornment={<PushPinTwoTone />}
           />
         </Grid>
@@ -88,14 +70,11 @@ const SearchForm = ({ onSubmit, control, unregister }) => {
         </Grid>
         {lstIntermediateCities.map((item) => (
           <Grid item xs={6} md={3}>
-            <RHFAutoComplete
+            <CityCombo
               key={item}
               control={control}
               name={item}
               label="Intermediate City"
-              options={lstCitiesOptions}
-              required
-              onInputChange={handleCityInputChange}
               endAdornment={
                 <IconButton onClick={() => handleDeleteIntCity(item)}>
                   <DeleteTwoTone />
@@ -115,6 +94,26 @@ const SearchForm = ({ onSubmit, control, unregister }) => {
         </FormButton>
       </Stack>
     </Box>
+  );
+};
+
+const CityCombo = ({ control, name, label, endAdornment }) => {
+  const [lstCitiesOptions, setCitiesOptions] = useState([{ id: 1, label: "test" }]);
+  const handleCityInputChange = (e, val, reason) => {
+    if (reason === "input") {
+      console.log(val);
+    }
+  };
+  return (
+    <RHFAutoComplete
+      control={control}
+      name={name}
+      label={label}
+      options={lstCitiesOptions}
+      required
+      onInputChange={handleCityInputChange}
+      endAdornment={endAdornment}
+    />
   );
 };
 
