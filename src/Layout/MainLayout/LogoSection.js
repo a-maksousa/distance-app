@@ -1,10 +1,15 @@
 import { ButtonBase } from "@mui/material";
 import { Box } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 const LogoSection = () => {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate("/");
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <ButtonBase onClick={() => {}}>
+      <ButtonBase onClick={handleNavigate}>
         <Box
           sx={{
             height: "50px",
