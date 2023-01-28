@@ -40,16 +40,19 @@ const SearchCityApi = (SearchText) => {
         resolve(matchedCity);
       }
       reject();
-    }, 50);
+    }, 100);
   });
 };
 
 const calculateDistance = (origin, destination) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
+      if ([origin[0], destination[0]].includes("Dijon")) {
+        reject();
+      }
       resolve(
         Math.round(haversine({ lat: origin[1], lng: origin[2] }, { lat: destination[1], lng: destination[2] }) / 1000)
       );
-    }, 50);
+    }, 100);
   });
 };

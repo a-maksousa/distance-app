@@ -12,7 +12,7 @@ import Section from "Components/Section";
 import { UtilContext } from "Contexts/UtilContext";
 import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { MeasureAllDistances, MeasureDistance } from "./service";
+import { MeasureAllDistances } from "./service";
 
 const InfoChip = styled(Chip)({
   width: "100%",
