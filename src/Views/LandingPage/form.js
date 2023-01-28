@@ -95,7 +95,7 @@ const SearchForm = ({ onSubmit }) => {
         </FormButton>
       </Stack>
       <Collapse in={lstIntermediateCities.length > 0} sx={{ width: "100%" }}>
-        <Section title="Intermediate Cities">
+        <Section>
           {lstIntermediateCities.map((item) => (
             <Grid item xs={6} md={3}>
               <CityCombo

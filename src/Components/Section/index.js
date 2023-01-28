@@ -1,14 +1,8 @@
-import { Divider, Grid, Paper, Typography } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 
-const Section = ({ children, sx, title }) => {
+const Section = ({ children, sx }) => {
   return (
     <Paper sx={{ padding: (theme) => theme.spacing(3), ...sx }}>
-      {title && (
-        <>
-          <Typography variant="h6">{title}</Typography>
-          <Divider sx={{ marginBlock: 1 }} />
-        </>
-      )}
       <Grid container spacing={2}>
         {children}
       </Grid>
