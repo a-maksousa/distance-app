@@ -16,12 +16,17 @@ export const components = {
   MuiTextField: {
     defaultProps: {
       variant: "outlined",
-      fullWidth: true
+      fullWidth: true,
     },
   },
   MuiButton: {
     defaultProps: {
       variant: "contained",
+    },
+    styleOverrides: {
+      root: {
+        textTransform: "capitalize",
+      },
     },
   },
 };

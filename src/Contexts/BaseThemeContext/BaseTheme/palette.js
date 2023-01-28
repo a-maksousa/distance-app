@@ -1,7 +1,7 @@
 import { amber } from "@mui/material/colors";
 
 export const composeThemePalette = ({ palette: { mode, grey } }) => ({
-  ...(mode === "light" && { background: { default: grey[100] } }),
+  ...(mode === "light" && { background: { default: grey[200] } }),
 });
 
 export const palette = {

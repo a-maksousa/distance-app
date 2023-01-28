@@ -8,6 +8,7 @@ import moment from "moment";
 import { useState } from "react";
 
 const FormButton = styled(Button)({ borderRadius: 30 });
+FormButton.defaultProps = { size: "large" };
 
 const SearchForm = ({ onSubmit, control }) => {
   const [lstOriginOptions, setOrigin] = useState([{ id: 1, label: "test" }]);
