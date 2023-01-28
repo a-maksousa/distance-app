@@ -66,9 +66,8 @@ const SearchForm = ({ onSubmit, control }) => {
             label="Number of Passengers"
             control={control}
             required
-            type="number"
             rules={{
-              validate: (value) => value > 0 || "Should be a number greater than 0",
+              validate: (value) => (value > 0 && RegExp("^[0-9]*$").test(value)) || "Should be a number greater than 0",
             }}
             InputProps={{ endAdornment: <GroupTwoTone /> }}
           />
