@@ -11,14 +11,20 @@ import RHFAutoComplete from "Components/RHFControls/RHFAutoComplete";
 import RHFDatePicker from "Components/RHFControls/RHFDatePicker";
 import RHFTextField from "Components/RHFControls/RHFTextField";
 import Section from "Components/Section";
+import { UtilContext } from "Contexts/UtilContext";
+import { debounce } from "lodash";
 import moment from "moment";
-import { useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { GetCities } from "./service";
+import { useForm } from "react-hook-form";
 
 const FormButton = styled(Button)({ borderRadius: 30 });
 FormButton.defaultProps = { size: "large" };
 
-const SearchForm = ({ onSubmit, control, unregister }) => {
+const SearchForm = ({ onSubmit }) => {
+  const { control, handleSubmit, unregister, getValues } = useForm();
+
   const [lstIntermediateCities, setIntermediateCities] = useState([]);
 
   const handleAddIntCity = () => {
@@ -30,8 +36,19 @@ const SearchForm = ({ onSubmit, control, unregister }) => {
     unregister(city);
   };
 
+  const onFormSubmit = (data) => {
+    const objData = {
+      origin: data.origin,
+      destination: data.destination,
+      dateOfTrip: data.dateOfTrip,
+      numOdPassengers: data.numOdPassengers,
+      intermediateCities: lstIntermediateCities.map((item) => getValues(item)),
+    };
+    onSubmit(objData);
+  };
+
   return (
-    <Box component="form" noValidate onSubmit={onSubmit}>
+    <Box component="form" noValidate onSubmit={handleSubmit(onFormSubmit)}>
       <Section sx={{ pb: 6 }}>
         <Grid item xs={6} md={3}>
           <CityCombo control={control} name="origin" label="City of Origin" endAdornment={<LocationOnTwoTone />} />
@@ -101,12 +118,20 @@ const SearchForm = ({ onSubmit, control, unregister }) => {
 };
 
 const CityCombo = ({ control, name, label, endAdornment }) => {
-  const [lstCitiesOptions, setCitiesOptions] = useState([{ id: 1, label: "test" }]);
-  const handleCityInputChange = (e, val, reason) => {
-    if (reason === "input") {
-      console.log(val);
+  const [lstCitiesOptions, setCitiesOptions] = useState([]);
+  const [loader, showLoader] = useState(false);
+  const { ShowError } = useContext(UtilContext);
+  const handleCityInputChange = async (e, val, reason) => {
+    if (val && reason === "input") {
+      showLoader(true);
+      await GetCities(val)(
+        (data) => setCitiesOptions(data.map((item) => ({ key: item[0], label: item[0], lat: item[1], long: item[1] }))),
+        ShowError
+      );
+      showLoader(false);
     }
   };
+  const debounceFn = useCallback(debounce(handleCityInputChange, 300), []);
   return (
     <RHFAutoComplete
       control={control}
@@ -114,8 +139,9 @@ const CityCombo = ({ control, name, label, endAdornment }) => {
       label={label}
       options={lstCitiesOptions}
       required
-      onInputChange={handleCityInputChange}
+      onInputChange={debounceFn}
       endAdornment={endAdornment}
+      loading={loader}
     />
   );
 };
