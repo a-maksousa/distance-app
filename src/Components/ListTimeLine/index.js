@@ -19,7 +19,7 @@ const ListTimeLine = ({ items }) => {
           <TimelineSeparator>
             <TimelineConnector />
             <TimelineDot
-              {...(index == 0
+              {...(index === 0
                 ? { color: "primary" }
                 : index === items.length - 1
                 ? { color: "secondary" }
