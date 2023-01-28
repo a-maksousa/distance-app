@@ -5,7 +5,7 @@ const Section = ({ children, sx, title }) => {
     <Paper sx={{ padding: (theme) => theme.spacing(3), ...sx }}>
       {title && (
         <>
-          <Typography variant="h5">{title}</Typography>
+          <Typography variant="h6">{title}</Typography>
           <Divider sx={{ marginBlock: 1 }} />
         </>
       )}
