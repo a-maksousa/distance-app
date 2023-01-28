@@ -38,11 +38,11 @@ const SearchForm = ({ onSubmit }) => {
 
   const onFormSubmit = (data) => {
     const objData = {
-      origin: data.origin,
-      destination: data.destination,
-      dateOfTrip: data.dateOfTrip,
+      origin: data.origin.label,
+      destination: data.destination.label,
+      dateOfTrip: moment(data.dateOfTrip).format("MM/DD/YYYY"),
       numOdPassengers: data.numOdPassengers,
-      intermediateCities: lstIntermediateCities.map((item) => getValues(item)),
+      intermediateCities: lstIntermediateCities.map((item) => getValues(item)?.label),
     };
     onSubmit(objData);
   };
