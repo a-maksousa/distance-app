@@ -6,7 +6,7 @@ import {
   AddTwoTone,
   DeleteTwoTone,
 } from "@mui/icons-material";
-import { Box, Button, Grid, IconButton, Stack, styled } from "@mui/material";
+import { Box, Button, Collapse, Grid, IconButton, Stack, styled } from "@mui/material";
 import RHFAutoComplete from "Components/RHFControls/RHFAutoComplete";
 import RHFDatePicker from "Components/RHFControls/RHFDatePicker";
 import RHFTextField from "Components/RHFControls/RHFTextField";
@@ -68,23 +68,7 @@ const SearchForm = ({ onSubmit, control, unregister }) => {
             InputProps={{ endAdornment: <GroupTwoTone /> }}
           />
         </Grid>
-        {lstIntermediateCities.map((item) => (
-          <Grid item xs={6} md={3}>
-            <CityCombo
-              key={item}
-              control={control}
-              name={item}
-              label="Intermediate City"
-              endAdornment={
-                <IconButton onClick={() => handleDeleteIntCity(item)}>
-                  <DeleteTwoTone />
-                </IconButton>
-              }
-            />
-          </Grid>
-        ))}
       </Section>
-
       <Stack justifyContent="center" sx={{ transform: "translate(0,-20px)" }} direction="row" spacing={1}>
         <FormButton startIcon={<AddTwoTone />} onClick={handleAddIntCity}>
           Add Intermediate City
@@ -93,6 +77,25 @@ const SearchForm = ({ onSubmit, control, unregister }) => {
           Search
         </FormButton>
       </Stack>
+      <Collapse in={lstIntermediateCities.length > 0} sx={{ width: "100%" }}>
+        <Section title="Intermediate Cities">
+          {lstIntermediateCities.map((item) => (
+            <Grid item xs={6} md={3}>
+              <CityCombo
+                key={item}
+                control={control}
+                name={item}
+                label="Intermediate City"
+                endAdornment={
+                  <IconButton onClick={() => handleDeleteIntCity(item)}>
+                    <DeleteTwoTone />
+                  </IconButton>
+                }
+              />
+            </Grid>
+          ))}
+        </Section>
+      </Collapse>
     </Box>
   );
 };
