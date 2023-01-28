@@ -1,4 +1,4 @@
-import { AppBar, Container, Paper, Toolbar } from "@mui/material";
+import { AppBar, Container, Toolbar } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import LogoSection from "./LogoSection";
 import HeaderActions from "./HeaderActions";

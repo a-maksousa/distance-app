@@ -1,6 +1,5 @@
 import { DarkModeTwoTone } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
-import { Box } from "@mui/system";
 import { BaseThemeContext } from "Contexts/BaseThemeContext";
 import { useContext } from "react";
 

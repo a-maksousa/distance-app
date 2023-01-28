@@ -2,9 +2,11 @@ import { Grid, Paper } from "@mui/material";
 
 const Section = ({ children }) => {
   return (
-    <Grid container>
-      <Paper sx={{ padding: (theme) => theme.spacing(3), width: "100%", height:"100%" }}>{children}</Paper>
-    </Grid>
+    <Paper sx={{ padding: (theme) => theme.spacing(3) }}>
+      <Grid container spacing={1}>
+        {children}
+      </Grid>
+    </Paper>
   );
 };
 

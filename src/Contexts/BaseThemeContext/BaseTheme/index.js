@@ -1,12 +1,18 @@
 import { createTheme } from "@mui/material";
-import { createComponentsTheme } from "./components";
+import { components, composeThemeComponents } from "./components";
+import { composeThemePalette, palette } from "./palette";
 
 export const initTheme = (mode) => {
   let baseTheme = createTheme({
+    components,
     palette: {
       mode,
+      ...palette,
     },
   });
 
-  return createTheme(baseTheme, { components: createComponentsTheme(baseTheme) });
+  return createTheme(baseTheme, {
+    components: composeThemeComponents(baseTheme),
+    palette: composeThemePalette(baseTheme),
+  });
 };
