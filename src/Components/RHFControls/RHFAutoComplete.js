@@ -28,7 +28,7 @@ const RHFAutoComplete = (props) => {
                 ...params.InputProps,
                 endAdornment: (
                   <>
-                    {props.loading ? <CircularProgress color="inherit" size={20} /> : null}
+                    {props.loading ? <CircularProgress color="inherit" size={20} /> : props.endAdornment}
                     {params.InputProps.endAdornment}
                   </>
                 ),

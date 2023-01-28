@@ -1,4 +1,4 @@
-import { SearchTwoTone } from "@mui/icons-material";
+import { SearchTwoTone, LocationOnTwoTone, PushPinTwoTone, GroupTwoTone } from "@mui/icons-material";
 import { Box, Button, Grid } from "@mui/material";
 import RHFAutoComplete from "Components/RHFControls/RHFAutoComplete";
 import RHFDatePicker from "Components/RHFControls/RHFDatePicker";
@@ -31,6 +31,7 @@ const SearchForm = ({ onSubmit, control }) => {
             options={lstOriginOptions}
             required
             onInputChange={handleOriginChange}
+            endAdornment={<LocationOnTwoTone />}
           />
         </Grid>
         <Grid item xs={6} md={3}>
@@ -41,6 +42,7 @@ const SearchForm = ({ onSubmit, control }) => {
             options={lstDestinationOptions}
             required
             onInputChange={handleDestinationChange}
+            endAdornment={<PushPinTwoTone />}
           />
         </Grid>
         <Grid item xs={6} md={3}>
@@ -65,6 +67,7 @@ const SearchForm = ({ onSubmit, control }) => {
             rules={{
               validate: (value) => value > 0 || "Should be a number greater than 0",
             }}
+            InputProps={{ endAdornment: <GroupTwoTone /> }}
           />
         </Grid>
       </Section>
