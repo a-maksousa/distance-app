@@ -1,28 +1,42 @@
-import { SearchTwoTone, LocationOnTwoTone, PushPinTwoTone, GroupTwoTone, AddTwoTone } from "@mui/icons-material";
-import { Box, Button, Grid, Stack, styled } from "@mui/material";
+import {
+  SearchTwoTone,
+  LocationOnTwoTone,
+  PushPinTwoTone,
+  GroupTwoTone,
+  AddTwoTone,
+  DeleteTwoTone,
+} from "@mui/icons-material";
+import { Box, Button, Grid, IconButton, Stack, styled } from "@mui/material";
 import RHFAutoComplete from "Components/RHFControls/RHFAutoComplete";
 import RHFDatePicker from "Components/RHFControls/RHFDatePicker";
 import RHFTextField from "Components/RHFControls/RHFTextField";
 import Section from "Components/Section";
 import moment from "moment";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const FormButton = styled(Button)({ borderRadius: 30 });
 FormButton.defaultProps = { size: "large" };
 
-const SearchForm = ({ onSubmit, control }) => {
-  const [lstOriginOptions, setOrigin] = useState([{ id: 1, label: "test" }]);
-  const [lstDestinationOptions, setDestination] = useState([{ id: 1, label: "test" }]);
-  const handleOriginChange = (e, val, reason) => {
+const SearchForm = ({ onSubmit, control, unregister }) => {
+  const [lstCitiesOptions, setCitiesOptions] = useState([{ id: 1, label: "test" }]);
+  const [lstIntermediateCities, setIntermediateCities] = useState([]);
+
+  const handleCityInputChange = (e, val, reason) => {
     if (reason === "input") {
       console.log(val);
     }
   };
-  const handleDestinationChange = (e, val, reason) => {
-    if (reason === "input") {
-      console.log(val);
-    }
+
+  const handleAddIntCity = () => {
+    setIntermediateCities([...lstIntermediateCities, `City_${uuidv4()}`]);
   };
+
+  const handleDeleteIntCity = (city) => {
+    setIntermediateCities(lstIntermediateCities.filter((item) => item !== city));
+    unregister(city);
+  };
+
   return (
     <Box component="form" noValidate onSubmit={onSubmit}>
       <Section sx={{ pb: 6 }}>
@@ -31,9 +45,9 @@ const SearchForm = ({ onSubmit, control }) => {
             control={control}
             name="origin"
             label="City of Origin"
-            options={lstOriginOptions}
+            options={lstCitiesOptions}
             required
-            onInputChange={handleOriginChange}
+            onInputChange={handleCityInputChange}
             endAdornment={<LocationOnTwoTone />}
           />
         </Grid>
@@ -42,9 +56,9 @@ const SearchForm = ({ onSubmit, control }) => {
             control={control}
             name="destination"
             label="City of Destination"
-            options={lstDestinationOptions}
+            options={lstCitiesOptions}
             required
-            onInputChange={handleDestinationChange}
+            onInputChange={handleCityInputChange}
             endAdornment={<PushPinTwoTone />}
           />
         </Grid>
@@ -72,10 +86,30 @@ const SearchForm = ({ onSubmit, control }) => {
             InputProps={{ endAdornment: <GroupTwoTone /> }}
           />
         </Grid>
+        {lstIntermediateCities.map((item) => (
+          <Grid item xs={6} md={3}>
+            <RHFAutoComplete
+              key={item}
+              control={control}
+              name={item}
+              label="Intermediate City"
+              options={lstCitiesOptions}
+              required
+              onInputChange={handleCityInputChange}
+              endAdornment={
+                <IconButton onClick={() => handleDeleteIntCity(item)}>
+                  <DeleteTwoTone />
+                </IconButton>
+              }
+            />
+          </Grid>
+        ))}
       </Section>
 
       <Stack justifyContent="center" sx={{ transform: "translate(0,-20px)" }} direction="row" spacing={1}>
-        <FormButton startIcon={<AddTwoTone />}>Add Intermediate City</FormButton>
+        <FormButton startIcon={<AddTwoTone />} onClick={handleAddIntCity}>
+          Add Intermediate City
+        </FormButton>
         <FormButton type="submit" color="secondary" startIcon={<SearchTwoTone />}>
           Search
         </FormButton>
