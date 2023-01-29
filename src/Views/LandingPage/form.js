@@ -6,7 +6,7 @@ import {
   AddTwoTone,
   DeleteTwoTone,
 } from "@mui/icons-material";
-import { Box, Button, Collapse, Grid, IconButton, Stack, styled } from "@mui/material";
+import { Box, Button, Collapse, Grid, IconButton, Stack, styled, useMediaQuery, useTheme } from "@mui/material";
 import RHFAutoComplete from "Components/RHFControls/RHFAutoComplete";
 import RHFDatePicker from "Components/RHFControls/RHFDatePicker";
 import RHFTextField from "Components/RHFControls/RHFTextField";
@@ -19,13 +19,16 @@ import { v4 as uuidv4 } from "uuid";
 import { GetCities } from "./service";
 import { useForm } from "react-hook-form";
 
-const FormButton = styled(Button)({ borderRadius: 30 });
-FormButton.defaultProps = { size: "large" };
+const FormButton = styled(Button)((theme) => ({ borderRadius: 30 }));
 
 const SearchForm = ({ onSubmit }) => {
   const { control, handleSubmit, unregister, getValues } = useForm();
 
   const [lstIntermediateCities, setIntermediateCities] = useState([]);
+
+  const theme = useTheme();
+  const downSM = useMediaQuery(theme.breakpoints.down("sm"));
+  const downMD = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleAddIntCity = () => {
     setIntermediateCities([...lstIntermediateCities, `City_${uuidv4()}`]);
@@ -50,10 +53,10 @@ const SearchForm = ({ onSubmit }) => {
   return (
     <Box component="form" noValidate onSubmit={handleSubmit(onFormSubmit)}>
       <Section sx={{ pb: 6 }}>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <CityCombo control={control} name="origin" label="City of Origin" endAdornment={<LocationOnTwoTone />} />
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <CityCombo
             control={control}
             name="destination"
@@ -61,7 +64,7 @@ const SearchForm = ({ onSubmit }) => {
             endAdornment={<PushPinTwoTone />}
           />
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <RHFDatePicker
             name="dateOfTrip"
             label="Date of Trip"
@@ -73,7 +76,7 @@ const SearchForm = ({ onSubmit }) => {
             }}
           />
         </Grid>
-        <Grid item xs={6} md={3}>
+        <Grid item xs={12} sm={6} md={3}>
           <RHFTextField
             name="numOdPassengers"
             label="Number of Passengers"
@@ -87,17 +90,26 @@ const SearchForm = ({ onSubmit }) => {
         </Grid>
       </Section>
       <Stack justifyContent="center" sx={{ transform: "translate(0,-20px)" }} direction="row" spacing={1}>
-        <FormButton startIcon={<AddTwoTone />} onClick={handleAddIntCity}>
+        <FormButton
+          size={downSM ? "small" : downMD ? "medium" : "large"}
+          startIcon={<AddTwoTone />}
+          onClick={handleAddIntCity}
+        >
           Add Intermediate City
         </FormButton>
-        <FormButton type="submit" color="secondary" startIcon={<SearchTwoTone />}>
+        <FormButton
+          size={downSM ? "small" : downMD ? "medium" : "large"}
+          type="submit"
+          color="secondary"
+          startIcon={<SearchTwoTone />}
+        >
           Search
         </FormButton>
       </Stack>
       <Collapse in={lstIntermediateCities.length > 0} sx={{ width: "100%" }}>
         <Section>
           {lstIntermediateCities.map((item) => (
-            <Grid item xs={6} md={3}>
+            <Grid item xs={12} sm={6} md={3}>
               <CityCombo
                 key={item}
                 control={control}

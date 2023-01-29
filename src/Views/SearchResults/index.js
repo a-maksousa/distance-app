@@ -41,7 +41,7 @@ const SearchResults = () => {
     <>
       <Section sx={{ pb: 6 }}>
         {searchParams.get("origin") && (
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             <InfoChip
               icon={<LocationOnTwoTone />}
               label={`City of Origin: ${searchParams.get("origin")}`}
@@ -50,7 +50,7 @@ const SearchResults = () => {
           </Grid>
         )}
         {searchParams.get("destination") && (
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             <InfoChip
               icon={<PushPinTwoTone />}
               label={`City of Destination: ${searchParams.get("destination")}`}
@@ -59,7 +59,7 @@ const SearchResults = () => {
           </Grid>
         )}
         {searchParams.get("dateOfTrip") && (
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             <InfoChip
               icon={<CalendarTodayTwoTone />}
               label={`Date of Trip: ${searchParams.get("dateOfTrip")}`}
@@ -68,7 +68,7 @@ const SearchResults = () => {
           </Grid>
         )}
         {searchParams.get("numOdPassengers") && (
-          <Grid item xs={6} md={3}>
+          <Grid item xs={12} sm={6} md={3}>
             <InfoChip
               icon={<GroupTwoTone />}
               label={`Number of Passengers: ${searchParams.get("numOdPassengers")}`}
@@ -90,24 +90,24 @@ const SearchResults = () => {
         />
       </Stack>
       {lstDistances && (
-        <Section>
+        <Section sx={{ paddingInline: "0px" }}>
           <Grid item xs={12}>
             <ListTimeLine
               items={[
                 {
                   title: searchParams.get("origin"),
-                  description: "City of Origin",
+                  description: "Origin",
                   icon: <LocationOnTwoTone />,
                 },
                 ...searchParams.getAll("intermediateCities").map((item) => ({
                   title: item,
-                  description: "Intermediate City",
+                  description: "Intermediate",
                   caption: `${lstDistances.find((dItem) => dItem.name === item)?.distance} KM`,
                   icon: <LocationCityTwoTone />,
                 })),
                 {
                   title: searchParams.get("destination"),
-                  description: "City of Destination",
+                  description: "Destination",
                   caption: `${lstDistances.find((item) => item.name === searchParams.get("destination"))?.distance} KM`,
                   icon: <PushPinTwoTone />,
                 },

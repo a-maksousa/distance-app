@@ -7,8 +7,10 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import Typography from "@mui/material/Typography";
+import { useMediaQuery } from "@mui/material";
 
 const ListTimeLine = ({ items }) => {
+  const isMobile = useMediaQuery("(max-width:400px)");
   return (
     <Timeline position="alternate">
       {items?.map((item, index) => (
@@ -33,7 +35,7 @@ const ListTimeLine = ({ items }) => {
             <Typography variant="h6" component="span">
               {item.title}
             </Typography>
-            <Typography>{item.description}</Typography>
+            {!isMobile && <Typography>{item.description}</Typography>}
           </TimelineContent>
         </TimelineItem>
       ))}
