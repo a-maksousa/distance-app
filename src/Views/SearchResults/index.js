@@ -100,7 +100,7 @@ const SearchResults = () => {
                   icon: <LocationOnTwoTone />,
                 },
                 ...searchParams.getAll("intermediateCities").map((item) => ({
-                  title: item,
+                  title: item?.split("_")[0],
                   description: "Intermediate",
                   caption: `${lstDistances.find((dItem) => dItem.name === item)?.distance} KM`,
                   icon: <LocationCityTwoTone />,

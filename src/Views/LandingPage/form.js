@@ -45,7 +45,7 @@ const SearchForm = ({ onSubmit }) => {
       destination: data.destination.label,
       dateOfTrip: moment(data.dateOfTrip).format("MM/DD/YYYY"),
       numOdPassengers: data.numOdPassengers,
-      intermediateCities: lstIntermediateCities.map((item) => getValues(item)?.label),
+      intermediateCities: lstIntermediateCities.map((item) => `${getValues(item)?.label}_${uuidv4()}`),
     };
     onSubmit(objData);
   };

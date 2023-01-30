@@ -12,17 +12,17 @@ export const MeasureAllDistances = (origin, intermediate, destination) => async 
     } else {
       const lstDistances = [];
       for (const [index, City] of intermediate?.entries()) {
-        const cityLines = await SearchCityApi(City);
+        const cityLines = await SearchCityApi(City.split("_")[0]);
         let distance = 0;
         if (index === 0) {
           distance = await calculateDistance(cityLines, originLines);
         } else {
-          const prevCLines = await SearchCityApi(intermediate[index - 1]);
+          const prevCLines = await SearchCityApi(intermediate[index - 1].split("_")[0]);
           distance = await calculateDistance(cityLines, prevCLines);
         }
         lstDistances.push({ name: City, distance });
       }
-      const lastIntCityLines = await SearchCityApi(intermediate[intermediate.length - 1]);
+      const lastIntCityLines = await SearchCityApi(intermediate[intermediate.length - 1].split("_")[0]);
       const lastDistance = await calculateDistance(lastIntCityLines, destinationLines);
       lstDistances.push({ name: destination, distance: lastDistance });
       onSuccess(lstDistances);
