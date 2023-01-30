@@ -70,9 +70,9 @@ const SearchForm = ({ onSubmit }) => {
             label="Date of Trip"
             control={control}
             required
-            dateProps={{ maxDate: moment() }}
+            dateProps={{ minDate: moment() }}
             rules={{
-              validate: (value) => moment(value).isSameOrBefore(moment(), "day") || "Date sould be in the future",
+              validate: (value) => moment(value).isSameOrAfter(moment(), "day") || "Date sould be in the future",
             }}
           />
         </Grid>
